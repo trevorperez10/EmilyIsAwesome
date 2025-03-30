@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frun Time! - Whimsical Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="completionSound" src="greedy.mp3"></audio>
+    <div class="workout-list">
+        <h2>✨ Frun Time! ✨</h2>
+        <ul id="workouts">
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+
+    <script>
+        const workouts = [
+            {
+                date: "FEB 26, 2025",
+                title: "Sparkle Run 🌟",
+                distance: "1.7mi",
+                time: "25m - 30m",
+                steps: [
+                    { activity: "WALK 🚶‍♀️", duration: "5 mins warm up" },
+                    { activity: "RUN 🏃‍♂️", duration: "1 min at a happy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "1 min at a happy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "1 min at a happy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "1 min at a happy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "1 min at a happy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "1 min at a happy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "5 mins cool down" }
+                ]
+            },
+            {
+                date: "MAR 1, 2025",
+                title: "Rainbow Dash 🌈",
+                distance: "1.8mi",
+                time: "25m - 30m",
+                steps: [
+                    { activity: "WALK 🚶‍♀️", duration: "5 mins warm up" },
+                    { activity: "RUN 🏃‍♂️", duration: "2 mins at a breezy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "2 mins at a breezy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "2 mins at a breezy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "2 mins at a breezy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "1.5 mins stroll" },
+                    { activity: "RUN 🏃‍♂️", duration: "2 mins at a breezy pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "5 mins cool down" }
+                ]
+            },
+            {
+                date: "March 15", // Replace with actual date if needed
+                title: "Brisk Adventure! 🐾",
+                distance: "N/A", // Or add your distance
+                time: "Varies", // Or add your time
+                steps: [
+                    { activity: "WALK 🚶‍♀️", duration: "5 mins warm up" },
+                    { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "2 mins brisk walk" },
+                    { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "2 mins brisk walk" },
+                    { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "2 mins brisk walk" },
+                    { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "2 mins brisk walk" },
+                    { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                    { activity: "WALK 🚶‍♀️", duration: "5 mins cool down" }
+                ]
+            },
+            {
+                    date: "March 20", // Replace with actual date if needed
+                    title: "Week 2 Kickoff! 🚀", // Whimsical title
+                    distance: "N/A", // Or add your distance
+                    time: "Varies", // Or add your time
+                    steps: [
+                        { activity: "WALK 🚶‍♀️", duration: "5 mins warm up" },
+                        { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                        { activity: "WALK 🚶‍♀️", duration: "2 mins walking" },
+                        { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                        { activity: "WALK 🚶‍♀️", duration: "2 mins walking" },
+                        { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                        { activity: "WALK 🚶‍♀️", duration: "2 mins walking" },
+                        { activity: "RUN 🏃‍♂️", duration: "3 mins at a conversational pace" },
+                        { activity: "WALK 🚶‍♀️", duration: "2 mins walking" },
+                        { activity: "WALK 🚶‍♀️", duration: "5 mins cool down" }
+                    ]
+            }
+
+            
+        ];
+
+        const encouragingMessages = [
+    "You get a gold star! 🌟",
+    "Good girl! 🎉",
+    "I love you! 🥰", // Changed to a heart-eyes emoji for love
+    "You're amazing! 💖",
+    "Lucy would be proud! 🐶🥳", // Added a dog emoji for Lucy
+    "Fake run? More like Fun Run! 🏃‍♀️💪", // Added running emoji
+    "ZOOOOOOOOOOM! 🚀💨", // Added a dash emoji for speed
+    "You did it! 🔥🏆", // Added trophy
+    "You're so pretty! 🌸🌈", // Added flower for pretty, rainbow for whimsy
+    "WooHoo! 🏆🎉",
+    "WEEEEEEEEE 🎢", //Added rollercoaster for the weeeee
+];
+
+        const workoutsList = document.getElementById('workouts');
+        let completedWorkouts = JSON.parse(localStorage.getItem('completedWorkouts')) || {};
+
+        workouts.forEach((workout, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div class="workout-info">
+                    <p class="workout-title"><strong>${workout.title}</strong> - ${workout.date}</p>
+                    <div class="workout-details">
+                        <p class="workout-meta">Distance: ${workout.distance}, Time: ${workout.time}</p>
+                        <ul class="workout-steps">
+                            ${workout.steps.map(step => `<li>${step.duration} (${step.activity})</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                <button class="mark-completed-btn" data-workout-index="${index}">${completedWorkouts[index] ? 'Undo' : 'Mark as Completed'}</button>
+            `;
+            workoutsList.appendChild(li);
+
+            const markCompletedButton = li.querySelector('.mark-completed-btn');
+            const details = li.querySelector('.workout-details');
+
+            if (completedWorkouts[index]) {
+                li.classList.add('completed-workout');
+            }
+
+            li.addEventListener('click', () => {
+                if (details.style.display === 'block') {
+                    details.style.display = 'none';
+                } else {
+                    details.style.display = 'block';
+                }
+            });
+
+            markCompletedButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const workoutIndex = markCompletedButton.getAttribute('data-workout-index');
+                const workoutLi = markCompletedButton.parentElement;
+
+                if (completedWorkouts[workoutIndex]) {
+                    delete completedWorkouts[workoutIndex];
+                    workoutLi.classList.remove('completed-workout');
+                    markCompletedButton.textContent = 'Mark as Completed';
+                } else {
+                    completedWorkouts[workoutIndex] = true;
+                    workoutLi.classList.add('completed-workout');
+                    playCompletionSound(); // Play the song
+                    fireConfetti();
+                    showEncouragingMessages();
+                    markCompletedButton.textContent = 'Undo';
+                }
+
+                localStorage.setItem('completedWorkouts', JSON.stringify(completedWorkouts));
+            });
+        });
+
+        function fireConfetti() {
+            confetti({
+                particleCount: 500,
+                spread: 70,
+                origin: { y: 0.9 }
+            });
+
+            confetti({
+                particleCount: 500,
+                spread: 70,
+                origin: { x: 0, y: .9 }
+            });
+
+            confetti({
+                particleCount: 500,
+                spread: 70,
+                origin: { x: 1, y: 0.9 }
+            });
+        }
+
+        function fireConfettiLong() {
+            confetti({
+                particleCount: 500,
+                spread: 70,
+                origin: { y: 0.9 }
+            });
+
+            confetti({
+                particleCount: 500,
+                spread: 70,
+                origin: { x: 0, y: .9 }
+            });
+
+            confetti({
+                particleCount: 500,
+                spread: 70,
+                origin: { x: 1, y: 0.9 }
+            });
+            
+            
+        }
+
+        function showEncouragingMessages() {
+    const messagePositions = [];
+    const messageOverlapThreshold = 100;
+    const usedMessages = new Set();
+
+    for (let i = 0; i < encouragingMessages.length; i++) {
+        let randomMessage;
+
+        do {
+            randomMessage = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+        } while (usedMessages.has(randomMessage));
+
+        usedMessages.add(randomMessage);
+
+        const message = document.createElement('div');
+        message.classList.add('encouraging-message');
+        message.textContent = randomMessage;
+
+        let randomX, randomY;
+        let overlap;
+
+        do {
+            randomX = Math.random() * 80 + 10;
+            randomY = Math.random() * 80 + 10;
+            overlap = false;
+
+            for (const pos of messagePositions) {
+                const distanceX = Math.abs(randomX - pos.x) * window.innerWidth / 100;
+                const distanceY = Math.abs(randomY - pos.y) * window.innerHeight / 100;
+                const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+                if (distance < messageOverlapThreshold) {
+                    overlap = true;
+                    break;
+                }
+            }
+        } while (overlap);
+
+        messagePositions.push({ x: randomX, y: randomY });
+
+        const randomScale = Math.random() * 0.8 + 0.8;
+
+        message.style.left = `${randomX}vw`;
+        message.style.top = `${randomY}vh`;
+        message.style.transform = `translate(-50%, -50%) scale(${randomScale})`;
+        message.style.animationDelay = `${Math.random() * 2}s`;
+        message.style.animationName = 'message-appear';
+
+        document.body.appendChild(message);
+
+        message.addEventListener('animationend', () => {
+          message.style.animationName = 'message-fade-spin';
+          message.addEventListener('animationend', () => {
+            message.remove();
+            // Trigger the full-page animation only after the last message is removed
+            if (i === encouragingMessages.length - 1) {
+              triggerFullPageAnimation();
+            }
+          });
+        });
+    }
+}
+
+function triggerFullPageAnimation() {
+    //const animationDiv = document.createElement('div');
+    //animationDiv.classList.add('full-page-animation');
+    //document.body.appendChild(animationDiv);
+
+    //animationDiv.addEventListener('animationend', () => {
+      //  animationDiv.remove();
+        startLongConfetti();
+    //});
+}
+
+function startLongConfetti() {
+    const confettiInterval = setInterval(() => {
+        fireConfetti();
+    }, 400); // Fire confetti more frequently
+
+    setTimeout(() => {
+        clearInterval(confettiInterval);
+    }, 3000); // Shorter confetti duration
+}
+function playCompletionSound() {
+    const sound = document.getElementById('completionSound');
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play();
+
+        // Fade out the song over 3 seconds starting at 17 seconds
+        let fadeOutInterval = setInterval(() => {
+            if (sound.currentTime >= 17 && sound.volume > 0.1) {
+                sound.volume -= 0.1; // Decrease volume
+            } else if (sound.currentTime >= 20) {
+                sound.pause();
+                sound.currentTime = 0;
+                sound.volume = 1; // Reset volume
+                clearInterval(fadeOutInterval);
+            }
+        }, 300); // Check every 300 milliseconds
+    }
+}
+
+
+
+    </script>
+</body>
+</html>

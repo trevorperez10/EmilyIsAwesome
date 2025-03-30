@@ -1,0 +1,229 @@
+/* style.css */
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #ffe6f7;
+    position: relative;
+    overflow-y: auto;
+    line-height: 1.6;
+}
+
+.workout-list h2 {
+    color: #e91e63;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em;
+}
+
+.workout-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.workout-list li {
+    background-color: #fff0f5;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.workout-list li:hover {
+    transform: translateY(-8px);
+}
+
+.workout-list li .workout-info {
+    flex-grow: 1;
+}
+
+.workout-list li .workout-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #e91e63;
+    font-size: 1.2em;
+}
+
+.workout-list li .workout-meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.workout-list li .workout-details {
+    display: none;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 2px dotted #e91e63;
+}
+
+.workout-list li .workout-steps {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.workout-list li .workout-steps li {
+    background-color: transparent;
+    padding: 5px 0;
+    margin-bottom: 0;
+    box-shadow: none;
+    display: list-item;
+}
+
+.workout-list li .mark-completed-btn {
+    background-color: #ff4081;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-left: 20px;
+}
+
+.workout-list li .mark-completed-btn:hover {
+    background-color: #e91e63;
+}
+
+.workout-list li .mark-completed-btn:disabled {
+    background-color: #c2c2c2;
+    cursor: not-allowed;
+}
+
+.completed-workout {
+    text-decoration: line-through;
+    color: #c2c2c2;
+}
+
+.success-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: #ff4081;
+    opacity: 1;
+    animation: success-fade 3s ease-out forwards;
+}
+
+@keyframes success-fade {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .workout-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .workout-list li .mark-completed-btn {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+.encouraging-message {
+    position: fixed;
+    font-size: 2em;
+    color: #ff4081;
+    opacity: 0; /* Changed initial opacity to 0 */
+    animation: message-fade 5s ease-out forwards, message-pulse 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    z-index: 1000;
+}
+
+@keyframes message-fade {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes message-pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+@keyframes message-appear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+@keyframes message-fade-spin {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.1) rotate(360deg);
+    }
+}
+h2 {
+    font-size: 4em; /* Increased font size significantly */
+    animation: none; /* Remove any existing animations */
+}
+
+h2 span {
+    display: inline; /* remove span display inline block */
+}
+
+.full-page-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, #ff4081, #ffe6f7); /* Initial color */
+    animation: rainbow-explosion 2s ease-out forwards; /* Slightly slower */
+    z-index: 9999;
+}
+
+.full-page-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to right, #ff6ec7, #ff9933, #ffff66, #66ff66, #66b3ff, #9933ff, #ff6ec7); /* Rainbow gradient */
+    background-size: 400% 400%; /* Make gradient larger than container */
+    animation: color-flow 8s ease-in-out infinite alternate; /* Looping animation */
+    z-index: 9999;
+}
+
+@keyframes color-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
